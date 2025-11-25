@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetoJou | Hamburgueria Artesanal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+      /* --- VARIÁVEIS E RESET --- */
+      :root {
+        --primary: #ff6b00;
+        /* Laranja da marca */
+        --dark-bg: #121212;
+        --dark-card: #1e1e1e;
+        --text-light: #f5f5f5;
+        --text-gray: #a0a0a0;
+        --success: #25d366;
+        /* Cor do WhatsApp */
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--dark-bg);
+        color: var(--text-light);
+        overflow-x: hidden;
+      }
+
+      h1,
+      h2,
+      h3,
+      .brand-font {
+        font-family: 'Oswald', sans-serif;
+        text-transform: uppercase;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        transition: 0.3s;
+      }
+
+      button {
+        cursor: pointer;
+        border: none;
+        font-family: inherit;
+      }
+
+      /* --- HEADER --- */
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(18, 18, 18, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        border-bottom: 1px solid #333;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .logo-icon {
+        background: var(--primary);
+        color: #000;
+        padding: 5px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .cart-trigger {
+        position: relative;
+        background: none;
+        color: var(--text-light);
+        font-size: 1.5rem;
+      }
+
+      .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: var(--primary);
+        color: white;
+        font-size: 0.7rem;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      /* --- HERO SECTION --- */
+      .hero {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+          url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 60px;
+      }
+
+      .badge {
+        background: rgba(255, 107, 0, 0.2);
+        color: var(--primary);
+        padding: 5px 15px;
+        border-radius: 20px;
+        border: 1px solid var(--primary);
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        line-height: 1.1;
+        max-width: 900px;
+        margin-bottom: 20px;
+      }
+
+      .hero h1 span {
+        color: var(--primary);
+      }
+
+      .cta-btn {
+        background: var(--primary);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-top: 30px;
+        transition: transform 0.2s;
+        display: inline-block;
+      }
+
+      .cta-btn:hover {
+        transform: scale(1.05);
+        background: #e56000;
+      }
+
+      /* --- MENU SECTION --- */
+      .menu-section {
+        padding: 4rem 5%;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        color: var(--primary);
+      }
+
+      .category-filter {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        background: transparent;
+        border: 1px solid #333;
+        color: var(--text-gray);
+        padding: 8px 20px;
+        border-radius: 20px;
+        transition: 0.3s;
+      }
+
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .product-card {
+        background: var(--dark-card);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s;
+        border: 1px solid transparent;
+      }
+
+      .product-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-5px);
+      }
+
+      .card-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .card-content {
+        padding: 1.5rem;
+      }
+
+      .card-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .card-desc {
+        font-size: 0.9rem;
+        color: var(--text-gray);
+        margin-bottom: 1.5rem;
+        height: 40px;
+        /* Limitar altura */
+        overflow: hidden;
+      }
+
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .price {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .add-btn {
+        background: white;
+        color: black;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: 0.2s;
+      }
+
+      .add-btn:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      /* --- CART SIDEBAR --- */
+      .cart-sidebar {
+        position: fixed;
+        top: 0;
+        right: -400px;
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        background: var(--dark-card);
+        z-index: 2000;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        transition: right 0.4s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+      }
+
+      .cart-sidebar.open {
+        right: 0;
+      }
+
+      .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #333;
+        padding-bottom: 1rem;
+      }
+
+      .close-cart {
+        background: none;
+        color: var(--text-light);
+        font-size: 1.5rem;
+      }
+
+      .cart-items {
+        flex: 1;
+        overflow-y: auto;
+      }
+
+      .cart-item {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        background: #2a2a2a;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      .cart-item img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      .item-details {
+        flex: 1;
+      }
+
+      .item-name {
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      .item-price {
+        color: var(--primary);
+        font-size: 0.9rem;
+      }
+
+      .item-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 5px;
+      }
+
+      .qty-btn {
+        background: #444;
+        color: white;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+      }
+
+      .cart-footer {
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid #333;
+      }
+
+      .total-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        background: var(--success);
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .checkout-btn:hover {
+        background: #1ebd56;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1500;
+        display: none;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
+      /* --- FOOTER --- */
+      footer {
+        background: #0a0a0a;
+        padding: 2rem 5%;
+        text-align: center;
+        color: var(--text-gray);
+        font-size: 0.9rem;
+        margin-top: 2rem;
+      }
+
+      /* --- RESPONSIVIDADE --- */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        /* Escondido em mobile por simplicidade */
+      }
+    </style>
+    <script type="text/javascript" src="./index.js" defer=""></script>
+    <link rel="stylesheet" href="./index.css">
+  </head>
+
+  <body>
+
+    <header>
+      <div class="logo">
+        <div class="logo-icon"><i class="ph ph-hamburger"></i></div>
+        <span>BETO<span style="color:var(--primary)">JOU</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#home">Início</a>
+        <a href="#menu">Cardápio</a>
+        <a href="#sobre">Sobre Nós</a>
+      </nav>
+      <button class="cart-trigger" onclick="toggleCart()">
+        <i class="ph ph-shopping-bag"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="badge">ARTESANAL DE VERDADE</div>
+      <h1>MORDIDAS QUE <br>TRANSFORMAM <br><span>SEU DIA</span></h1>
+      <a href="#menu" class="cta-btn">VER CARDÁPIO</a>
+    </section>
+
+    <section class="menu-section" id="menu">
+      <div class="section-title">
+        <h2>NOSSO CARDÁPIO</h2>
+        <p style="color: var(--text-gray);">O melhor sabor da cidade na sua casa</p>
+      </div>
+
+      <div class="category-filter">
+        <button class="filter-btn active" onclick="filterMenu('all')">Todos</button>
+        <button class="filter-btn" onclick="filterMenu('burger')">Burgers</button>
+        <button class="filter-btn" onclick="filterMenu('side')">Acompanhamentos</button>
+        <button class="filter-btn" onclick="filterMenu('drink')">Bebidas</button>
+      </div>
+
+      <div class="products-grid" id="products-container">
+      </div>
+    </section>
+
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+      <div class="cart-header">
+        <h3>SEU PEDIDO</h3>
+        <button class="close-cart" onclick="toggleCart()"><i class="ph ph-x"></i></button>
+      </div>
+
+      <div class="cart-items" id="cart-items">
+        <p style="text-align: center; color: var(--text-gray); margin-top: 20px;">Seu carrinho está vazio.</p>
+      </div>
+
+      <div class="cart-footer">
+        <div class="total-row">
+          <span>Total</span>
+          <span id="cart-total">R$ 0,00</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()">
+          <i class="ph ph-whatsapp-logo"></i> FINALIZAR PEDIDO
+        </button>
+      </div>
+    </div>
+
+    <footer id="sobre">
+      <p>© 2024 Hamburgueria BetoJou. Todos os direitos reservados.</p>
+      <p>Feito com 🧡 e muito bacon.</p>
+    </footer>
+
+    <script>
+      // --- DADOS DOS PRODUTOS ---
+      const products = [{
+          id: 1,
+          name: "Beto Classic",
+          price: 28.90,
+          desc: "Pão brioche, blend 160g, queijo cheddar, alface, tomate e maionese da casa.",
+          category: "burger",
+          image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=60"
+        },
+        {
+          id: 2,
+          name: "Jou Bacon",
+          price: 32.90,
+          desc: "Pão australiano, blend 160g, muito bacon crocante, cheddar e cebola caramelizada.",
+          category: "burger",
+          image: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=500&q=60"
+        },
+        {
+          id: 3,
+          name: "Smash Duplo",
+          price: 25.90,
+          desc: "Dois burgers de 80g prensados na chapa, queijo prato e molho especial.",
+          category: "burger",
+          image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=500&q=60"
+        },
+        {
+          id: 4,
+          name: "Batata Rústica",
+          price: 14.90,
+          desc: "Batatas cortadas a mão, fritas com alecrim e alho.",
+          category: "side",
+          image: "https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=500&q=60"
+        },
+        {
+          id: 5,
+          name: "Onion Rings",
+          price: 16.90,
+          desc: "Anéis de cebola empanados e crocantes.",
+          category: "side",
+          image: "https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=500&q=60"
+        },
+        {
+          id: 6,
+          name: "Coca-Cola Lata",
+          price: 6.00,
+          desc: "350ml, gelada.",
+          category: "drink",
+          image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=500&q=60"
+        }
+      ];
+
+      // --- ESTADO DO CARRINHO ---
+      let cart = [];
+
+      // --- RENDERIZAR MENU ---
+      const productsContainer = document.getElementById('products-container');
+
+      function renderProducts(filter = 'all') {
+        productsContainer.innerHTML = '';
+
+        const filteredProducts = filter === 'all' ?
+          products :
+          products.filter(p => p.category === filter);
+
+        filteredProducts.forEach(product => {
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="card-img">
+                    <div class="card-content">
+                        <div class="card-title">
+                            <span>${product.name}</span>
+                        </div>
+                        <p class="card-desc">${product.desc}</p>
+                        <div class="card-footer">
+                            <span class="price">R$ ${product.price.toFixed(2).replace('.', ',')}</span>
+                            <button class="add-btn" onclick="addToCart(${product.id})">
+                                <i class="ph ph-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+          productsContainer.appendChild(card);
+        });
+      }
+
+      // --- FILTRAR MENU ---
+      function filterMenu(category) {
+        // Atualizar botões visuais
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        renderProducts(category);
+      }
+
+      // --- LÓGICA DO CARRINHO ---
+      function addToCart(id) {
+        const product = products.find(p => p.id === id);
+        const existingItem = cart.find(item => item.id === id);
+
+        if (existingItem) {
+          existingItem.qty++;
+        } else {
+          cart.push({
+            ...product,
+            qty: 1
+          });
+        }
+
+        updateCartUI();
+        openCart(); // Opcional: abrir carrinho ao adicionar
+      }
+
+      function removeFromCart(id) {
+        const itemIndex = cart.findIndex(item => item.id === id);
+        if (itemIndex > -1) {
+          if (cart[itemIndex].qty > 1) {
+            cart[itemIndex].qty--;
+          } else {
+            cart.splice(itemIndex, 1);
+          }
+        }
+        updateCartUI();
+      }
+
+      function updateCartUI() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartCount = document.getElementById('cart-count');
+        const cartTotal = document.getElementById('cart-total');
+
+        // Atualizar contador
+        const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+        cartCount.innerText = totalItems;
+
+        // Renderizar itens
+        if (cart.length === 0) {
+          cartItemsContainer.innerHTML = '<p style="text-align: center; color: var(--text-gray); margin-top: 20px;">Seu carrinho está vazio.</p>';
+        } else {
+          cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">R$ ${(item.price * item.qty).toFixed(2).replace('.', ',')}</div>
+                            <div class="item-controls">
+                                <button class="qty-btn" onclick="removeFromCart(${item.id})">-</button>
+                                <span>${item.qty}</span>
+                                <button class="qty-btn" onclick="addToCart(${item.id})">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+        }
+
+        // Atualizar total
+        const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        cartTotal.innerText = 'R$ ' + total.toFixed(2).replace('.', ',');
+      }
+
+      function toggleCart() {
+        const sidebar = document.getElementById('cart-sidebar');
+        const overlay = document.getElementById('overlay');
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+      }
+
+      function openCart() {
+        document.getElementById('cart-sidebar').classList.add('open');
+        document.getElementById('overlay').classList.add('active');
+      }
+
+      // --- CHECKOUT WHATSAPP ---
+      function checkout() {
+        if (cart.length === 0) {
+          alert("Seu carrinho está vazio!");
+          return;
+        }
+
+        let message = "Olá BetoJou! Gostaria de fazer um pedido:\n\n";
+        cart.forEach(item => {
+          message += `${item.qty}x ${item.name} - R$ ${(item.price * item.qty).toFixed(2)}\n`;
+        });
+
+        const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        message += `\n*Total: R$ ${total.toFixed(2)}*`;
+        message += "\n\nForma de pagamento: (Informe aqui)";
+        message += "\nEndereço de entrega: (Informe aqui)";
+
+        const encodedMessage = encodeURIComponent(message);
+        // Substitua o número abaixo pelo número real da loja
+        window.open(`https://wa.me/5583981374944?text=${encodedMessage}`, '_blank');
+      }
+
+      // Inicializar
+      renderProducts();
+    </script>
+
+  </body>
+
+</html>
