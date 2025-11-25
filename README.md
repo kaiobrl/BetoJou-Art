@@ -30,6 +30,12 @@ Uma loja de hambúrgueres artesanais online com carrinho de compras integrado ao
 - Apenas acompanhamentos
 - Apenas bebidas
 
+### 📋 Modal de Checkout
+- Campo de forma de pagamento (dropdown com opções)
+- Campo de endereço de entrega (textarea)
+- Validação de campos obrigatórios
+- Envio automático do pedido via WhatsApp com todas as informações
+
 ### 📲 Integração WhatsApp
 - Envio automático do pedido via WhatsApp
 - Resumo dos itens e total
@@ -88,8 +94,11 @@ Simplesmente abra o arquivo `index.html` em um navegador web.
 
 ### 5. Finalizar Pedido
 - Clique em "FINALIZAR PEDIDO"
-- Será aberto uma conversa no WhatsApp com o resumo
-- Informe a forma de pagamento e endereço de entrega
+- Preencha o modal com:
+  - **Forma de Pagamento**: Selecione entre Dinheiro, Débito, Crédito, PIX ou Outro
+  - **Endereço de Entrega**: Digite o endereço completo
+- Clique em "Enviar Pedido"
+- Será aberto uma conversa no WhatsApp com o resumo completo incluindo forma de pagamento e endereço
 
 ## ⚙️ Configuração
 
@@ -142,6 +151,13 @@ O site é totalmente responsivo para:
 - Controles de quantidade
 - Total do pedido
 - Botão de checkout WhatsApp
+
+### Modal de Checkout
+- Formulário com campos obrigatórios
+- Dropdown de formas de pagamento (Dinheiro, Débito, Crédito, PIX, Outro)
+- Textarea para endereço de entrega
+- Validação de preenchimento
+- Botões de cancelar ou confirmar
 
 ### Footer
 - Copyright e informação da marca
